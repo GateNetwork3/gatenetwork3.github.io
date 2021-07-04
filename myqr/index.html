@@ -1,92 +1,160 @@
-<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="theme-color" content="#000000" />
-  
-<title>GATENETWORK QR CODE SCANNER</title>
-  <style>
-    body{
-      background-color: #000000;
-      color :#ffffff;
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>QR SCAN</title>
+<style type="text/css">
+.parent{
+background: url('scan-icon.gif') no-repeat center; 
+ position: absolute;
+ display:block;
+  top: 0;
+  left: 0;
+  }
+.modal {
+display: none; 
+position: fixed; 
+z-index: 1;
+padding-top: 30px;
+left: 0;
+top: 0;
+width: 100%; 
+height: 100%; 
+overflow: auto; 
+background-color: rgb(0,0,0); 
+background-color: rgba(0,0,0,0.4); 
+}
+.modal-content {
+background-color: #000;
+margin: auto;
+padding: 10px;
+border: 2px solid #111;
+width: 260px;
+-moz-border-radius:3px; 
+-khtml-border-radius:5px; 
+-webkit-border-radius:5px ; 
+border-radius:5px ;
+color:red;
+font-weight:bold
+}
+.close {float: right;
+font-size: 15px;
+font-weight: bold;}
+.close:hover,.close:focus {
+text-decoration: none;
+cursor: pointer;
+}
+#mainbody{
+width:100%;
+display:none;
+}
+.selector{
+	display:none;
+	visibility: hidden;
+}
+#result{
+display:none;
+	visibility: hidden;
+}
+
+#v{
+width:240px;
+height:200px;
+}
+#qr-canvas{
+display:none;
+}
+#outdiv{
+padding:0;
+width:240px;
+height:200px;
+border: solid;
+border-width: 3px 3px 3px 3px;
+-moz-border-radius:3px; 
+-khtml-border-radius:5px; 
+-webkit-border-radius:5px ; 
+border-radius:5px ;
+color:#555;
+background: #000;
+}
+.tsel{
+padding:0;
+}
+blink {
+    -webkit-animation: 2s linear infinite condemned_blink_effect; // for android
+    animation: 2s linear infinite condemned_blink_effect;
+}
+@-webkit-keyframes condemned_blink_effect { // for android
+    0% {
+        visibility: hidden;
     }
-    video {
-      width: 100%    !important;
-      height: auto   !important;
+    50% {
+        visibility: hidden;
     }
-    .btn{
-      margin-top:5px;
-      margin-bottom:10px;
-      padding:5px;
-      background-color: #f2f2f2;
-      color: #000000;
-      border-radius:3px;
-      width: 150px;
-      cursor: pointer;
+    100% {
+        visibility: visible;
     }
-    .camera{
-      width: 95%;
+}
+@keyframes condemned_blink_effect {
+    0% {
+        visibility: hidden;
     }
-    a{
-      text-decoration: none;
-      color:#20a8d8;
+    50% {
+        visibility: hidden;
     }
-    @font-face {
-      font-family: 'fontello';
-      src: url('./font/fontello.eot?14907215');
-      src: url('./font/fontello.eot?14907215#iefix') format('embedded-opentype'),
-           url('./font/fontello.woff?14907215') format('woff'),
-           url('./font/fontello.ttf?14907215') format('truetype'),
-           url('./font/fontello.svg?14907215#fontello') format('svg');
-      font-weight: normal;
-      font-style: normal;
+    100% {
+        visibility: visible;
     }
-    .icon
-    {
-      font-family: "fontello";
-      font-style: normal;
-      font-weight: normal;
-      speak: none;
-      display: inline-block;
-      text-decoration: inherit;
-      width: 1em;
-      margin-right: .2em;
-      text-align: center;
-      font-variant: normal;
-      text-transform: none;
-      line-height: 1em;
-      margin-left: .2em;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-  </style>
+}
+</style>
 <script type="text/javascript" src="llqrcode.js"></script>
 <script type="text/javascript" src="webqr.js"></script>
-<script async src="https://arc.io/widget.min.js#rDZc6s4f"></script>  
 </head>
 <body>
-  <center>
-    <div id="main">
-      <div id="mainbody">
-        <div class="camera" id="outdiv"></div>
-        <div style="display: table;">
-          <div style="display: table-row;">
-            <div style="display: table-cell; padding:3px;">
-              <div class="btn" id="reload" onclick="location.reload();"><i class="icon icon-arrows-cw">&#xe800;</i> Reload Camera</div>
-            </div>
-            <div style="display: table-cell; padding:3px;">
-              <!-- <div class="btn" onclick="document.location = 'googlechrome://navigate?url=https://gatenetwork3.github.io/myqr';"></div> -->
-              <a class="btn" href="intent://gatenetwork3.github.io/myqr#Intent;scheme=http;package=com.android.chrome;end"><i class="icon icon-chrome-1">&#xf268;</i> Open in Chrome</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div>GATENETWORK QR CODE SCANNER <br>Powered by <a href="http://www.webqr.com">webqr.com</a></div>
-  </center>
-<canvas style="display:none;" id="qr-canvas" width="800" height="600"></canvas>
+<Center>
+Jika muncul Popup ijinkan kamera klik setujui / yes <br> <br>Klik Tombol dibawah ini Untuk Membuka Kamera<br>
+<button style="margin-right:10px; width: 120px;height: 35px;background: #888;border: 2px solid #999;cursor: pointer;border-radius: 2px;	color: #fff;font-family: 'Open Sans', sans-serif;font-size: 16px;font-weight: bold;padding: 6px;margin-top: 10px;" id="myBtn">QR SCAN</button>
+</center>
+
+
+
+<div id="myModal" class="modal">
+<div class="modal-content">
+<center><span class="scanning">▒▒▒▒▒▒▒<blink> ▓ scanning ▓ </blink>▒▒▒▒▒▒▒</span></center>
+<div id="mainbody">
+<div class="selector" id="webcamimg" onclick="setwebcam()" align="left" ></div>
+<table class="tsel" border="0" width="100%">
+<td valign="top" align="center" width="50%">
+<table class="tsel" border="0">
+<td colspan="1" align="center">
+<div id="outdiv"></div>
+</td>
+</table>
+</td>
+<div id="result"></div>
+</table>
+<span class="close"></span>
+<center><span style="font-weight:bold;font-size:12px; color:#999;">Scan QR code yang ada pada vouhcer anda</span></center>
+</div>
+<canvas id="qr-canvas" width="100%" height="100%"></canvas>
+</div>
+</div>
+<script type="text/javascript">
+var modal = document.getElementById('myModal');
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+btn.onclick = function() {
+modal.style.display = "block";
+}
+span.onclick = function() {
+modal.style.display = "none";
+}
+window.onclick = function(event) {
+if (event.target == modal) {
+modal.style.display = "none";
+}
+}
+</script>
 <script type="text/javascript">load();</script>
 </body>
 </html>
-
